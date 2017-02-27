@@ -1,5 +1,6 @@
 # Robot-Path-Planning
 Artificial Intelligence course assignment 2
+
 Robot will follow an efficient path to arrive at the place where the user clicks.
 
 If the user left-clicks, uniform cost search algorithm is used to plan the path.
