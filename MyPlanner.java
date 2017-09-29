@@ -14,14 +14,14 @@ public class MyPlanner {
     CostComparator costcomp = new CostComparator();
     PriorityQueue<MyState> frontier;
     if(useAstar) {
-        frontier = new PriorityQueue<MyState>(starcomp);
+        frontier = new PriorityQueue<>(starcomp);
     }
     else {
-        frontier = new PriorityQueue<MyState>(costcomp);
+        frontier = new PriorityQueue<>(costcomp);
         lowestCost = 0;
     }
     StateComparator comp = new StateComparator();
-    TreeSet<MyState> beenthere = new TreeSet<MyState>(comp);
+    TreeSet<MyState> beenthere = new TreeSet<>(comp);
     MyState s;
     MyState child;
     MyState oldchild;
@@ -98,22 +98,24 @@ public class MyPlanner {
       // Four diagnol directions
       for(int i = 0; i < 4; i++) {
         child = new MyState(s);
-        if (i == 0) {
-            child.state[0] += stepSize;
-            child.state[1] += stepSize;
-        }
-        else if (i == 1) {
-            child.state[0] += stepSize;
-            child.state[1] -= stepSize;
-        }
-        else if (i == 2) {
-            child.state[0] -= stepSize;
-            child.state[1] += stepSize;
-        }
-        else {
-            child.state[0] -= stepSize;
-            child.state[1] -= stepSize;
-        }
+          switch (i) {
+              case 0:
+                  child.state[0] += stepSize;
+                  child.state[1] += stepSize;
+                  break;
+              case 1:
+                  child.state[0] += stepSize;
+                  child.state[1] -= stepSize;
+                  break;
+              case 2:
+                  child.state[0] -= stepSize;
+                  child.state[1] += stepSize;
+                  break;
+              default:
+                  child.state[0] -= stepSize;
+                  child.state[1] -= stepSize;
+                  break;
+          }
         child.heuristic = lowestCost * getDist(child,goalState) * aStarModifier;
         
         if(child.state[0] > 1195) {
